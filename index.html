@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ব্যয়ের হিসাব</title>
+    <title>চাঁদার হিসাব</title>
     <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
     <style>
         /* Reset & Base */
@@ -74,41 +74,41 @@
 <body>
 <div class="container">
     <header>
-        <h1>ব্যয়ের হিসাব</h1>
-        <p>মোট ব্যয়:</p>
-        <div class="total-amount" id="মোট ব্যয়">৳০.০০</div>
+        <h1> চাঁন্দা ভাইয়ের চাঁদার হিসাব</h1>
+        <p>মোট চাঁদা:</p>
+        <div class="total-amount" id="মোট চাঁদা">৳০.০০</div>
     </header>
 
     <button id="downloadExcelBtn" style="margin:15px; background:#28a745;">এক্সেল ডাউনলোড করুন</button>
 
     <section class="expense-form">
-        <h2>নতুন ব্যয় সংযোজন</h2>
+        <h2>নতুন চাঁদার সংযোজন</h2>
         <form id="নতুন ব্যয় সংযোজন">
             <div class="form-group">
-                <label for="ব্যয়ের খাত">ব্যয়ের খাত</label>
-                <input type="text" id="ব্যয়ের খাত" placeholder="যেমন: বাজার, ভাড়া" required>
+                <label for="চাঁদার খাত">চাঁদার খাত</label>
+                <input type="text" id="চাঁদার খাত" placeholder="যেমন: বাজার, ভাড়া" required>
             </div>
 
             <div class="form-group">
-                <label for="পরিমাণ">পরিমাণ (৳)</label>
+                <label for=" চাঁদার পরিমাণ"> চাঁদার পরিমাণ (৳)</label>
                 <input type="number" id="পরিমাণ" min="0.01" step="0.01" placeholder="০.০০" required>
             </div>
 
             <div class="form-group">
-                <label for="খাতের ধরণ">খাতের ধরণ:</label>
-                <select id="খাতের ধরণ" required>
+                <label for="চাঁদার ধরণ">চাঁদার ধরণ:</label>
+                <select id="চাঁদার ধরণ" required>
                     <option value="">একটি ধরণ নির্বাচন করুন</option>
-                    <option value="খাবার">খাবার</option>
-                    <option value="পরিবহন">পরিবহন</option>
-                    <option value="বিনোদন">বিনোদন</option>
-                    <option value="ইউটিলিটি">ইউটিলিটি</option>
-                    <option value="শপিং">শপিং</option>
-                    <option value="অন্যান্য">অন্যান্য</option>
+                    <option value="খাবার এর চাঁদা">খাবার এর চাঁদা</option>
+                    <option value="পরিবহন এর চাঁদা">পরিবহন এর চাঁদা</option>
+                    <option value="বিনোদন এর চাঁদা">বিনোদন এর চাঁদা</option>
+                    <option value="ইউটিলিটি এর চাঁদা">ইউটিলিটি এর চাঁদা</option>
+                    <option value="শপিং এর চাঁদা">শপিং এর চাঁদা</option>
+                    <option value="অন্যান্য চাঁদা">অন্যান্য চাঁদা</option>
                 </select>
             </div>
 
             <div class="form-group">
-                <label for="expenseDate">তারিখ</label>
+                <label for="expenseDate">চাঁদা দেয়ার তারিখ</label>
                 <input type="date" id="expenseDate" required>
             </div>
 
@@ -117,9 +117,9 @@
     </section>
 
     <section class="expenses-list">
-        <h2>সাম্প্রতিক ব্যয়</h2>
+        <h2>সাম্প্রতিক চাঁদা</h2>
         <div id="expensesContainer">
-            <div class="no-expenses">কোনো ব্যয় নেই। উপরে নতুন ব্যয় সংযোজন করুন!</div>
+            <div class="no-expenses">কোনো চাঁদা নেই। উপরে নতুন চাঁদা সংযোজন করুন!</div>
         </div>
     </section>
 </div>
@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', function(){
     initApp();
     document.getElementById('expenseDate').valueAsDate = new Date();
 
-    document.getElementById('নতুন ব্যয় সংযোজন').addEventListener('submit', function(e){
+    document.getElementById('নতুন চাঁদা সংযোজন').addEventListener('submit', function(e){
         e.preventDefault();
         addExpense();
     });
@@ -153,7 +153,7 @@ function loadExpenses(){
     const expenses = getExpenses();
     const container = document.getElementById('expensesContainer');
     container.innerHTML='';
-    if(expenses.length===0){ container.innerHTML='<div class="no-expenses">কোনো ব্যয় নেই। উপরে নতুন ব্যয় সংযোজন করুন!</div>'; return; }
+    if(expenses.length===0){ container.innerHTML='<div class="no-expenses">কোনো চাঁদা নেই। উপরে নতুন চাঁদা সংযোজন করুন!</div>'; return; }
 
     expenses.sort((a,b)=>new Date(b.date)-new Date(a.date));
     expenses.forEach((exp,i)=>container.appendChild(createExpenseElement(exp,i)));
@@ -182,9 +182,9 @@ function createExpenseElement(expense,index){
 }
 
 function addExpense(){
-    const name=document.getElementById('ব্যয়ের খাত').value.trim();
-    const amount=document.getElementById('পরিমাণ').value;
-    const category=document.getElementById('খাতের ধরণ').value;
+    const name=document.getElementById('চাঁদার খাত').value.trim();
+    const amount=document.getElementById('চাঁদার পরিমাণ').value;
+    const category=document.getElementById('চাঁদার ধরণ').value;
     const date=document.getElementById('expenseDate').value;
 
     if(!name||!amount||!category||!date){ alert('সব ফিল্ড পূরণ করুন'); return; }
@@ -194,7 +194,7 @@ function addExpense(){
     expenses.push(newExp);
     saveExpenses(expenses);
     loadExpenses(); updateTotal();
-    document.getElementById('নতুন ব্যয় সংযোজন').reset();
+    document.getElementById('নতুন চাঁদার সংযোজন').reset();
     document.getElementById('expenseDate').valueAsDate=new Date();
 }
 
@@ -208,15 +208,15 @@ function deleteExpense(index){
 function updateTotal(){
     const expenses=getExpenses();
     const total = expenses.reduce((sum, exp)=>sum+parseFloat(exp.amount),0);
-    document.getElementById('মোট ব্যয়').textContent='৳'+toBanglaNumber(total.toFixed(2));
+    document.getElementById('মোট চাঁদা').textContent='৳'+toBanglaNumber(total.toFixed(2));
 }
 
 // Excel Download
 document.getElementById('downloadExcelBtn').addEventListener('click',function(){
     const expenses=getExpenses();
-    if(expenses.length===0){ alert("কোনো ব্যয় নেই!"); return; }
+    if(expenses.length===0){ alert("কোনো চাঁদা নেই!"); return; }
 
-    const data=[["ব্যয়ের খাত","পরিমাণ (৳)","খাতের ধরণ","তারিখ"],
+    const data=[["চাঁদার খাত","পরিমাণ (৳)","চাঁদার ধরণ","তারিখ"],
         ...expenses.map(exp=>[exp.name,toBanglaNumber(parseFloat(exp.amount).toFixed(2)),exp.category,exp.date])
     ];
 
